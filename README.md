@@ -1,1 +1,3 @@
-# music_streaming_app
+# music_streaming_appecho "# Music Streaming App Backend" >> README.md
+
+
