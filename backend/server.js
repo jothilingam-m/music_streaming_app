@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import authRoutes from './routes/auth.route.js';
 import songRoutes from './routes/song.route.js';
+import playlistRoutes from './routes/song.route.js';
 import connectDB from './db/connectMongoDB.js';
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(cors());
 //Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/songs', songRoutes);
+app.use('/api/v1/playlist',playlistRoutes);
 
 
 
