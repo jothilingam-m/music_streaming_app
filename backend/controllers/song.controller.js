@@ -85,3 +85,34 @@ export const deleteSong = async (req, res) => {
     }
 }
 
+// Like/Unlike a song
+export const likeSong = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        const song = await Song.findById(req.params.id);
+        const user = await User.findById(userId);
+        if (!song || !user) {
+            return res.status(404).json({ error: "Song or User not found" });
+        }
+
+        const hasLiked = user.likedSongs.includes(song._id);
+
+        if (hasLiked) {
+            user.likedSongs = user.likedSongs.filter(id => id.toString() !== song._id.toString());
+            song.likesCount = Math.max(0, song.likesCount - 1);
+        } else {
+            user.likedSongs.push(song._id);
+            song.likesCount += 1;
+        }
+
+        await user.save();
+        await song.save();
+
+        res.status(200).json({ song, liked: !hasLiked });
+
+    } catch (error) {
+        console.log(`Error in likeSong controller ${error.message}`);
+        res.status(500).json({ error: error.message });        
+    }
+}
+
