@@ -1,4 +1,5 @@
 import Song from "../models/song.schema.js";
+import User from "../models/user.schema.js";
 
 // Get all songs with search and filter functionality
 export const getAllSongs = async (req, res) => {
@@ -116,3 +117,14 @@ export const likeSong = async (req, res) => {
     }
 }
 
+//Download song
+export const downloads = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId).populate('downloadedSongs');
+        if (!user) return res.status(404).json({ message: 'User not found'})
+        res.json(user.downloadedSongs);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching downloads', error: error.message });
+
+    }
+}

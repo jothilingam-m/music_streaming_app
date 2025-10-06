@@ -21,7 +21,10 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/songs', songRoutes);
 app.use('/api/v1/playlist',playlistRoutes);
 
-
+// Health check 
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'OK', message: 'Music Streaming API is running'});
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port', ${PORT}`);
