@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Song'
     }],
-    downloadedSOngs: [{
+    downloadedSongs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Song'
     }],
